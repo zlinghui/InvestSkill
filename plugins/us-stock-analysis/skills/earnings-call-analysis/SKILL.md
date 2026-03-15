@@ -6,6 +6,17 @@ description: Analyze earnings call transcripts for sentiment, key themes, and ma
 
 Comprehensive analysis of earnings call transcripts to extract investment insights, management sentiment, strategic themes, and potential red flags.
 
+## Data Source Protocol
+
+Use transcript sources in this order:
+
+1. **Company investor relations**: Archived webcast transcripts, prepared remarks, slides, and earnings releases.
+2. **Official filings**: SEC 8-K earnings materials and any filed transcript excerpts or exhibits.
+3. **User-provided transcript text or URLs**: Analyze directly when provided.
+4. **Third-party transcript services**: Use only when the user explicitly provides the URL or already has access.
+
+Do not depend on paywalled or commonly blocked transcript portals to complete the analysis. If no transcript is accessible, say so and analyze the earnings release plus IR materials instead with reduced confidence.
+
 ## Analysis Framework
 
 ### 1. Executive Summary Analysis
@@ -214,6 +225,18 @@ Reference the following sources when analyzing earnings calls:
 - **AlphaSense**: Premium transcript service with AI search (paid)
 - **Bloomberg Terminal**: Real-time transcripts and historical archive (paid)
 - **FactSet**: Transcript archive with analytics (paid)
+
+### Claude Code Fetch Notes
+
+In Claude Code:
+- `seekingalpha.com` may return 403
+- `bloomberg.com` transcript and market pages often return 403
+- `Web Search` may be unavailable
+
+Therefore:
+- Prefer company IR and SEC materials over third-party transcript portals.
+- Do not default to Seeking Alpha or Bloomberg fetches.
+- If no transcript is reachable, do not stall on transcript hunting; analyze the earnings release, guidance, and official materials you do have.
 
 ### Supplementary Information
 - **Earnings Press Release**: Published before call, contains prepared financial results

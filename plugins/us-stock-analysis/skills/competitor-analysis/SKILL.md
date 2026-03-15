@@ -6,6 +6,17 @@ description: Deep competitive moat analysis, market position assessment, and ind
 
 Conduct deep competitive moat analysis to assess whether a company has a durable competitive advantage, how wide that moat is, and what the competitive dynamics of its industry mean for long-term investment returns.
 
+## Data Source Protocol
+
+Prioritize sources in this order:
+
+1. **Official company disclosures**: Annual reports, SEC 10-K "Business" / "Competition" / "Risk Factors", investor presentations, and earnings materials.
+2. **Competitor disclosures**: Peer 10-Ks, annual reports, and investor presentations.
+3. **Accessible attributed industry references**: Trade publications, company-cited market data, and reachable industry reports.
+4. **Third-party explainers**: Optional secondary context only, never a required dependency.
+
+If exact market share data is unavailable from accessible sources, state that limitation explicitly and continue with a qualitative moat and competitive-position analysis based on filings and management disclosures.
+
 ## Overview
 
 Competitive analysis answers the fundamental question: **"Does this company have a durable competitive advantage, and how wide is its moat?"** This directly determines the appropriate valuation premium or discount vs. the sector.
@@ -316,6 +327,16 @@ Use these primary and secondary research sources to build the competitive pictur
 - Forrester Wave reports
 - IDC market share data
 - Trade publications specific to the industry vertical
+
+### Claude Code Fetch Notes
+
+In Claude Code, avoid default fetches to:
+- `investopedia.com`
+- `wikipedia.org`
+- `marketwatch.com`
+- `macrotrends.net`
+
+Do not rely on `Web Search` as a required step. If `Web Search` returns zero results or is unavailable in the current environment, do not keep retrying it. Fall back to company filings, competitor filings, investor-relations materials, and other accessible attributed sources.
 
 ---
 

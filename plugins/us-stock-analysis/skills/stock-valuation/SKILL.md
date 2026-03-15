@@ -6,6 +6,32 @@ description: Multi-method stock valuation using DCF, comparable company analysis
 
 Derive a rigorous intrinsic value estimate using multiple independent valuation methodologies, then triangulate to a single probability-weighted target price. Never rely on a single method — cross-validation across DCF, comparable company analysis (CCA), EV/EBITDA, and residual income models builds conviction and exposes assumption fragility.
 
+## Data Source Protocol
+
+Use a source hierarchy that prioritizes durability over convenience:
+
+1. **Primary company financials**: SEC 10-K, 10-Q, 8-K earnings materials, annual reports, and XBRL facts for revenue, EBITDA, cash flow, debt, cash, tax rate, and diluted shares.
+2. **Company guidance and IR materials**: Earnings decks, investor day presentations, and management guidance for scenario assumptions.
+3. **Stable market inputs**: Current share price, treasury yields, and other reference data from clearly attributable sources.
+4. **Third-party valuation portals**: Use only to cross-check multiples after the core inputs are built from primary sources.
+
+Do **not** make Yahoo Finance, Macrotrends, or other anti-bot finance pages a hard dependency for valuation work. If those sites fail, proceed with SEC/IR-based modeling rather than aborting.
+
+If peer multiples, beta, or consensus estimates are not available from reliable sources:
+- Use a wider valuation range and state the limitation explicitly.
+- Prefer simpler methods with auditable inputs over fake precision.
+- Never invent missing market data just to fill every cell in the model.
+
+### Claude Code Fetch Notes
+
+In this environment, avoid default fetches to:
+- `macrotrends.net` because 403 is common
+- `marketwatch.com` because access may be blocked
+- `finance.yahoo.com` because responses may be anti-bot shells or unstable HTML
+- `sec.gov` browse CGI pages when they 403 under generic fetch clients
+
+Prefer company IR filings, annual reports, earnings decks, and user-provided filing excerpts. If SEC is inaccessible, continue with accessible attributed sources and clearly flag the resulting confidence downgrade.
+
 ## Overview
 
 Valuation is an art grounded in financial science. Each method has strengths and weaknesses depending on the business type, stage of maturity, and data availability. This skill applies four to five valuation methods, then reconciles them into a football field chart to show the implied value range. Wherever there is consensus across methods, conviction is high. Where methods diverge significantly, that gap tells you something important about market expectations.

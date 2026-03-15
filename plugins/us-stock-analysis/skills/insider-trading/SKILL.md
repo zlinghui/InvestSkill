@@ -6,6 +6,16 @@ description: Track and analyze insider buying/selling activity from SEC Form 4 f
 
 Comprehensive analysis of insider transaction activity to identify investment signals, patterns, and potential red flags from SEC Form 4 filings.
 
+## Data Source Protocol
+
+Use insider-trading sources in this order:
+
+1. **Primary source**: SEC Form 4 / Form 3 / Form 5 filings, or user-provided filing extracts / transaction tables.
+2. **Accessible aggregators**: OpenInsider or other reachable Form 4 summaries, only as cross-checks against the filing record.
+3. **Premium tools**: Mention only if the user already has access or explicitly asks.
+
+Do not depend on news sites or general quote pages for insider data. If the official SEC browse endpoint is inaccessible in Claude Code, continue with user-provided filing data or another accessible, attributed insider-transaction source and lower confidence as needed.
+
 ## Analysis Framework
 
 ### 1. Transaction Summary (Last 6-12 Months)
@@ -258,6 +268,24 @@ Reference the following sources for insider trading data:
 - **Bloomberg Terminal**: Comprehensive insider data and analytics
 - **FactSet**: Insider transaction database
 - **S&P Capital IQ**: Detailed ownership and transaction data
+
+### Claude Code Fetch Notes
+
+In Claude Code:
+- `marketwatch.com` may be blocked
+- `nasdaq.com` insider pages may time out
+- `sec.gov` browse CGI endpoints may return 403
+- `stockanalysis.com` paths may vary and can 404
+- some low-reputation domains may fail certificate verification
+- `Web Search` may be unavailable in some environments
+
+Therefore:
+- Do not default to MarketWatch for insider activity.
+- Do not default to Nasdaq insider-activity pages if they are timing out.
+- If SEC returns 403, do not keep retrying the same browse endpoint.
+- If an aggregator path returns 404, do not guess adjacent URLs repeatedly.
+- If a site returns a certificate verification error, abandon that domain and move on.
+- Use accessible Form 4 data, pasted transaction tables, or reachable aggregators and clearly cite any limitation.
 
 **Key Data Points to Extract**
 - Insider name and title

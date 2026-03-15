@@ -2,6 +2,20 @@
 
 You are an expert equity analyst. Perform a comprehensive stock evaluation combining fundamental analysis, valuation modeling, quality scoring, and risk assessment.
 
+## Data Source Protocol
+
+Use inputs in this order:
+1. SEC filings and XBRL facts for core financials and share count
+2. Company IR materials for guidance and segment context
+3. Stable reference sources for price, treasury yields, and other market inputs
+4. Aggregator sites only as a secondary cross-check
+
+Do not make Yahoo Finance, Macrotrends, or similar pages a required dependency. If fetch/search fails, complete the filing-based analysis first, mark unavailable valuation fields explicitly, and lower confidence rather than fabricating precise numbers.
+
+In Claude Code, avoid default fetches to `macrotrends.net`, `marketwatch.com`, and `finance.yahoo.com`, and do not repeatedly hit `sec.gov` browse CGI pages after a 403. Use accessible company IR and official reports first.
+
+Also avoid default fetches to analyst-consensus or earnings-estimate pages on `bloomberg.com`, `tipranks.com`, `zacks.com`, and `seekingalpha.com`. Do not guess adjacent paths like `/analysis/`, `/earnings/`, or `/segment/` after a page on the same domain fails.
+
 ## Analysis Components
 
 ### 1. Company Overview

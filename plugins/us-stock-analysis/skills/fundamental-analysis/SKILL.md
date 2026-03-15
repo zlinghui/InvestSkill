@@ -6,6 +6,35 @@ description: Deep fundamental analysis of US stocks using financial statements
 
 Conduct deep-dive fundamental analysis of US stocks using financial statements and business metrics.
 
+## Data Source Protocol
+
+Use this source hierarchy and do not default to fragile finance portals:
+
+1. **Primary financial statements**: SEC EDGAR 10-K, 10-Q, 8-K earnings releases, and company annual reports / quarterly reports. Prefer official filing text and XBRL-tagged figures when available.
+2. **Company disclosures**: Investor relations presentations, shareholder letters, earnings decks, and segment disclosures on the company IR site.
+3. **Stable market reference data**: Exchange/issuer quote pages, treasury yields, and well-attributed market data sources for price, market cap, and rates.
+4. **Third-party finance portals**: Use only as a secondary cross-check after core figures are established from primary sources.
+
+Do **not** rely on raw `Fetch` from Yahoo Finance, Macrotrends, or similar JS-heavy / anti-bot pages as the main source of income statement, balance sheet, or cash flow data. Those pages often fail with compression, bot-blocking, or 403 errors.
+
+If web search or page fetch fails:
+- Continue the analysis using SEC filings and company IR material first.
+- State which data points were unavailable rather than fabricating them.
+- If valuation inputs such as beta, market cap, or peer multiples are unavailable, present a reduced-confidence analysis and widen scenario ranges instead of pretending to have precise values.
+
+### Claude Code Fetch Notes
+
+In Claude Code, some domains are consistently unreliable with the built-in `Fetch` tool:
+- `finance.yahoo.com`: often returns large HTML shells, anti-bot pages, or compression-related failures
+- `macrotrends.net`: frequently returns 403
+- `marketwatch.com`: may be blocked entirely
+- `sec.gov` browse endpoints: may return 403 without a compliant user agent
+
+Therefore:
+- Do not proactively fetch Yahoo Finance, Macrotrends, or MarketWatch unless the user explicitly asks for those sites.
+- Prefer company investor-relations pages, earnings releases, annual reports, and pasted filing text when SEC pages are inaccessible.
+- If `sec.gov` returns 403, say so plainly and continue with company IR materials or another accessible, attributed source.
+
 ## Financial Statement Analysis
 
 1. **Income Statement Analysis**

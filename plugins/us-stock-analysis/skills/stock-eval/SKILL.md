@@ -6,6 +6,40 @@ description: Evaluate US stocks with comprehensive fundamental and valuation ana
 
 Perform comprehensive stock evaluation combining fundamental analysis, valuation modeling, quality scoring, and risk assessment to produce investment-grade conclusions.
 
+## Data Source Protocol
+
+Before calculating ratios or valuation, collect inputs using this order:
+
+1. **Official company filings**: SEC 10-K, 10-Q, 8-K, annual reports, and XBRL facts for revenue, margins, debt, cash flow, share count, and tax rate.
+2. **Company IR materials**: Earnings releases, investor presentations, shareholder letters, and guidance decks for segment context and forward commentary.
+3. **Stable external reference data**: Treasury yields, current share price, and other market reference inputs from clearly attributable sources.
+4. **Aggregator sites**: Use only as a reconciliation check, not as the source of record.
+
+Avoid treating Yahoo Finance, Macrotrends, and similar pages as required dependencies. Their HTML endpoints frequently fail under `Fetch` due to anti-bot controls, compressed responses, or blocked search traffic.
+
+When external market data is partially unavailable:
+- Still complete the business quality and filing-based sections.
+- Mark missing valuation fields as unavailable or estimate them only if the assumption is explicit.
+- Lower confidence and widen the valuation range when beta, peer multiples, or consensus estimates cannot be verified.
+
+### Claude Code Fetch Notes
+
+Treat the following domains as high-failure in Claude Code `Fetch`:
+- `macrotrends.net`: frequent 403
+- `marketwatch.com`: may be blocked
+- `finance.yahoo.com`: often returns unstable HTML / anti-bot responses
+- `sec.gov` browse CGI endpoints: may return 403 without a compliant user agent
+
+Also avoid default fetches to analyst-consensus or earnings-estimate pages on:
+- `bloomberg.com`
+- `tipranks.com`
+- `zacks.com`
+- `seekingalpha.com`
+
+Do not guess adjacent site paths such as `/analysis/`, `/earnings/`, `/segment/`, or similar variants after one page fails on a domain.
+
+Do not probe those domains by default. Use company IR pages, official reports, pasted filing text, and other accessible attributed sources first. If a blocked domain is the only apparent path for a metric, mark the metric unavailable and proceed with reduced confidence.
+
 ## Analysis Components
 
 ### 1. Company Overview

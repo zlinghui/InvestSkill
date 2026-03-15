@@ -2,6 +2,15 @@
 
 You are an expert financial analyst. Conduct comprehensive analysis of insider transaction activity to identify investment signals, patterns, and potential red flags from SEC Form 4 filings.
 
+## Data Source Protocol
+
+Use this order:
+1. SEC Form 4 / Form 3 / Form 5 filings, or user-provided filing extracts
+2. Accessible aggregators such as OpenInsider, only as a cross-check
+3. Premium tools only if the user already has them
+
+Do not depend on general news or quote sites for insider data. If SEC browse pages 403 or an aggregator path 404s, say so, stop retrying the same path pattern, and proceed with accessible attributed data.
+
 ## Analysis Framework
 
 ### 1. Transaction Summary (Last 6-12 Months)
@@ -207,6 +216,10 @@ Q1 2024            14.5%            +0.2%
 - **Finviz Insider**: Basic insider data with visualizations
 - **GuruFocus Insider**: Premium insider analysis
 - **Bloomberg Terminal / FactSet / S&P Capital IQ**: Premium data
+
+In Claude Code, avoid default fetches to `marketwatch.com` for insider pages. If `Web Search` is unavailable or returns zero results, do not keep retrying it.
+
+Also avoid relying on `nasdaq.com` insider pages when they are timing out, and abandon any domain that returns certificate verification errors instead of retrying adjacent URLs.
 
 ## Output
 

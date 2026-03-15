@@ -12,6 +12,15 @@ Run a complete, structured research process for a single stock by systematically
 
 Use this skill when you need final due diligence before initiating or sizing a position, or when you want a structured, repeatable research process across multiple stocks.
 
+## Environment Rules
+
+When orchestrating other skills in Claude Code:
+- Do not treat `Web Search` as guaranteed. If it returns zero results or is unavailable, continue with accessible filings and company materials.
+- Avoid default fetches to domains already known to be unreliable in this environment, including `marketwatch.com`, `macrotrends.net`, `investopedia.com`, `wikipedia.org`, and any certificate-error site.
+- If a domain returns 403, tool-level blocking, timeouts, certificate errors, or repeated 404s, stop retrying similar URLs from that domain and move to the next-best accessible source.
+- Do not guess sibling URLs on the same site after a 404. One failed `analysis` / `earnings` / `segment` path is a signal to change source, not to keep probing adjacent pages.
+- Treat analyst-consensus and transcript portals such as `bloomberg.com`, `tipranks.com`, `zacks.com`, and `seekingalpha.com` as optional only; if they are inaccessible, omit that field and continue.
+
 ---
 
 ## Research Process (Phases)

@@ -2,6 +2,18 @@
 
 You are an expert equity analyst. Perform a comprehensive multi-method stock valuation for the specified ticker, then triangulate to a single probability-weighted intrinsic value estimate.
 
+## Data Source Protocol
+
+Use the following hierarchy:
+1. SEC 10-K, 10-Q, 8-K earnings materials, annual reports, and XBRL facts
+2. Company IR guidance, investor day decks, and shareholder letters
+3. Stable reference sources for current price, treasury yields, and similar market inputs
+4. Third-party valuation portals only as a reconciliation check
+
+Do not depend on Yahoo Finance, Macrotrends, or other anti-bot finance pages for core model inputs. If peer multiples, beta, or consensus data cannot be verified, widen the valuation range, state the limitation explicitly, and avoid fake precision.
+
+In Claude Code, avoid default fetches to `macrotrends.net`, `marketwatch.com`, and `finance.yahoo.com`, and do not keep retrying `sec.gov` browse CGI pages after a 403. Prefer company IR materials, official reports, and accessible attributed sources.
+
 ## Methods to Apply
 
 ### Method 1: DCF (Discounted Cash Flow)

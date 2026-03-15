@@ -6,6 +6,28 @@ description: Analyze US economic indicators and their impact on markets
 
 Analyze US economic conditions and their implications for investment decisions.
 
+## Data Source Protocol
+
+Use macro sources in this order:
+
+1. **Official releases and primary institutions**: Federal Reserve, BLS, BEA, Census, Treasury, and NY Fed.
+2. **Accessible market reference pages**: Reachable quote pages for Treasury benchmarks, major index levels, and credit-market context.
+3. **Secondary summaries**: Reputable market summaries only as cross-checks after the primary figures are established.
+
+If `Web Search` is unavailable or returns zero results, do not keep retrying it. Continue with accessible official releases and reachable market-reference pages.
+
+### Claude Code Fetch Notes
+
+In Claude Code:
+- `treasury.gov` legacy links may return redirects rather than final data pages
+- `home.treasury.gov` is preferable to the old `treasury.gov` path when Treasury data is needed
+- `Web Search` may be unavailable in some environments
+
+For the 10-year Treasury yield specifically:
+- Prefer an accessible Treasury page or another reachable attributed quote source
+- If only a market quote page is reachable, use it and label it clearly as a market-reference source
+- If no accessible source is available, mark the rate as unavailable rather than stalling
+
 ## Key Economic Indicators
 
 1. **Growth Indicators**

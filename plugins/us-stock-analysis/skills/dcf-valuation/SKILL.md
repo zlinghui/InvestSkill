@@ -6,6 +6,35 @@ description: Discounted Cash Flow (DCF) intrinsic value modeling with sensitivit
 
 Build a rigorous Discounted Cash Flow (DCF) model to estimate intrinsic value for US stocks, with full sensitivity analysis and three-scenario probability weighting.
 
+## Data Source Protocol
+
+Build the model from the most auditable inputs available:
+
+1. **Official filings first**: SEC 10-K, 10-Q, 8-K earnings releases, annual reports, and XBRL-tagged facts for revenue, operating cash flow, capex, debt, cash, taxes, and diluted share count.
+2. **Company IR materials**: Management guidance, investor day targets, segment commentary, and capital allocation plans for scenario assumptions.
+3. **Reference market inputs**: 10-year Treasury yield, current share price, and other market inputs from clearly attributable sources.
+4. **Third-party portals**: Use only as a secondary check on already-established figures.
+
+Do **not** rely on Yahoo Finance, Macrotrends, or other JS-heavy / anti-bot web pages as the primary source of base metrics. Fetching those pages often fails with 403 errors, blocked search, or compression issues.
+
+If market inputs such as beta, ERP cross-checks, or peer exit multiples are unavailable:
+- Use conservative ranges and show the sensitivity explicitly.
+- Reduce confidence in the final target price.
+- Keep the filing-derived operating metrics and complete the model with transparent assumptions rather than halting or fabricating precision.
+
+### Claude Code Fetch Notes
+
+For DCF work in Claude Code, do not default to fetching:
+- `macrotrends.net` due to frequent 403 responses
+- `marketwatch.com` due to tool-level blocking
+- `finance.yahoo.com` due to unstable anti-bot / shell responses
+- `sec.gov` browse CGI endpoints if they return 403 in this environment
+- `bloomberg.com`, `tipranks.com`, `zacks.com`, or `seekingalpha.com` analyst / estimates pages due to gating or frequent 403s
+
+Do not guess adjacent paths on aggregator sites such as `/analysis/`, `/earnings/`, `/segment/`, `/revenue-by-segment/`, or similar variants after a 404.
+
+Prefer annual reports, quarterly reports, earnings releases, company presentations, and pasted filing excerpts. If official SEC pages are blocked, state that limitation and proceed with transparent assumptions rather than stalling on inaccessible endpoints.
+
 ## Overview
 
 DCF is the gold standard for intrinsic value estimation. It answers the fundamental question: **"What is this business worth based on the future cash flows it will generate?"** Unlike relative valuation, which tells you how a stock is priced compared to peers, DCF tells you what the business is actually worth in absolute terms — independent of market sentiment or peer group pricing.
